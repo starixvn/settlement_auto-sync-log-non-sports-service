@@ -1,0 +1,62 @@
+﻿using AutoSyncData.Criteria;
+using AutoSyncData.Models;
+using Fanex.Data.Repository;
+using Fanex.Settlement.ScaleOut.Services;
+
+namespace AutoSyncData.Services;
+
+public interface SyncDataService
+{
+    Task<Result> SyncData(LogDetail logDetail, string server);
+
+    Task UpdateLogDetail(LogDetail logDetail, byte statusId, string errorMessage);
+}
+
+public class SyncDataServiceImp : SyncDataService
+{
+    private readonly IDynamicRepository repository;
+
+    private readonly ScaleOutSettleService scaleOutSettleService;
+
+    public SyncDataServiceImp(IDynamicRepository repository, ScaleOutSettleService scaleOutSettleService)
+    {
+        this.repository = repository;
+        this.scaleOutSettleService = scaleOutSettleService;
+    }
+
+    public async Task UpdateLogDetail(LogDetail logDetail, byte statusId, string errorMessage)
+    {
+        var criteria = new UpdateLogCriteria
+        {
+            LogId = logDetail.LogId,
+            StatusId = statusId,
+            ErrMsg = errorMessage,
+            DbServer = logDetail.DbServer
+        };
+
+        await repository.ExecuteAsync(criteria);
+    }
+
+    public async Task<Result> SyncData(LogDetail logDetail, string server)
+    {
+        var siteDbGroupId = await scaleOutSettleService.GetSiteGroupId(server);
+
+        var criteria = new SyncDataCriteria
+        {
+            TransInfo = logDetail.TransInfo,
+            TableName = logDetail.TableName,
+            MatchId = logDetail.MatchId,
+            Action = logDetail.Action,
+            SettlementAction = logDetail.SettlementAction,
+            TicketType = logDetail.TicketType
+        };
+
+        await repository.ExecuteAsync(criteria);
+
+        return new Result
+        {
+            ErrCode = criteria.ErrCode,
+            ErrMsg = criteria.ErrMsg
+        };
+    }
+}
