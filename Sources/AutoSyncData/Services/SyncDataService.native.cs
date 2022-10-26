@@ -48,7 +48,9 @@ public class SyncDataServiceImp : SyncDataService
             MatchId = logDetail.MatchId,
             Action = logDetail.Action,
             SettlementAction = logDetail.SettlementAction,
-            TicketType = logDetail.TicketType
+            TicketType = logDetail.TicketType,
+            Is3rd = true,
+            SiteDB = siteDbGroupId
         };
 
         await repository.ExecuteAsync(criteria);

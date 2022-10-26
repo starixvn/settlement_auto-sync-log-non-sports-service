@@ -20,6 +20,10 @@ public class SyncDataCriteria : NonQueryCommand
 
     public string ErrMsg { get; set; }
 
+    public int SiteDB { get; set; }
+
+    public bool Is3rd { get; set; }
+
     public override bool IsValid() => true;
 
     public override string GetSettingKey()
