@@ -1,5 +1,4 @@
 ﻿using AutoSyncData.Models;
-using Fanex.AutoSyncDataCentralDb;
 using Fanex.AutoSyncDataCentralDbNonSports.Service;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
@@ -25,7 +24,7 @@ app.UseRouting();
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapGet("/",
-        async context => { await context.Response.WriteAsync("Fanex.AutoSyncDataCentralDbNonSports.Service"); });
+        async context => { await context.Response.WriteAsync("Fanex.AutoSyncDataCentralDb.Service"); });
 });
 #if DEBUG
 app.Run();

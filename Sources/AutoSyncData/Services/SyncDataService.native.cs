@@ -1,64 +1,75 @@
-﻿using AutoSyncData.Criteria;
-using AutoSyncData.Models;
-using Fanex.Data.Repository;
-using Fanex.Settlement.ScaleOut.Services;
-
-namespace AutoSyncData.Services;
+﻿namespace AutoSyncData.Services;
 
 public interface SyncDataService
 {
-    Task<Result> SyncData(LogDetail logDetail, string server);
+    Task<bool> SyncCommandTicketToCentral(DataTable lastLog, SiteInfo siteInfo);
 
-    Task UpdateLogDetail(LogDetail logDetail, byte statusId, string errorMessage);
+    Task<bool> RetrySyncCommandTicketToCentral(SiteInfo siteInfo);
 }
 
 public class SyncDataServiceImp : SyncDataService
 {
-    private readonly IDynamicRepository repository;
+    private readonly QueryLogService queryLogService;
 
-    private readonly ScaleOutSettleService scaleOutSettleService;
+    private readonly AppSettingsKey appSettingsKey;
 
-    public SyncDataServiceImp(IDynamicRepository repository, ScaleOutSettleService scaleOutSettleService)
+    public SyncDataServiceImp(
+        QueryLogService queryLogService,
+        IOptions<AppSettingsKey> appSettingsKey)
     {
-        this.repository = repository;
-        this.scaleOutSettleService = scaleOutSettleService;
+        this.queryLogService = queryLogService;
+        this.appSettingsKey = appSettingsKey.Value;
     }
 
-    public async Task UpdateLogDetail(LogDetail logDetail, byte statusId, string errorMessage)
+    public async Task<bool> SyncCommandTicketToCentral(DataTable lastLog, SiteInfo siteInfo)
     {
-        var criteria = new UpdateLogCriteria
+        try
         {
-            LogId = logDetail.LogId,
-            StatusId = statusId,
-            ErrMsg = errorMessage,
-            DbServer = logDetail.DbServer
-        };
-
-        await repository.ExecuteAsync(criteria);
+            await queryLogService.InsertLog(lastLog, siteInfo.SiteGroupId);
+            await queryLogService.UpdateLogStatus(lastLog, siteInfo.AliasName);
+            return true;
+        }
+        catch
+        {
+            return await RetrySyncCommandTicketToCentral(siteInfo);
+        }
     }
 
-    public async Task<Result> SyncData(LogDetail logDetail, string server)
+    public async Task<bool> RetrySyncCommandTicketToCentral(SiteInfo siteInfo)
     {
-        var siteDbGroupId = await scaleOutSettleService.GetSiteGroupId(server);
-
-        var criteria = new SyncDataCriteria
+        for (var i = 0; i < appSettingsKey.RetryCount; i++)
         {
-            TransInfo = logDetail.TransInfo,
-            TableName = logDetail.TableName,
-            MatchId = logDetail.MatchId,
-            Action = logDetail.Action,
-            SettlementAction = logDetail.SettlementAction,
-            TicketType = logDetail.TicketType,
-            Is3rd = true,
-            SiteDB = siteDbGroupId
-        };
+            var isPassed = await SyncPendingCommandTicketToCentral(siteInfo);
+            if (isPassed)
+            {
+                return true;
+            }
+            if (i < appSettingsKey.RetryCount - 1)
+            {
+                await Task.Delay(appSettingsKey.RetryInterval);
+            }
+        }
 
-        await repository.ExecuteAsync(criteria);
+        return false;
+    }
 
-        return new Result
+    private async Task<bool> SyncPendingCommandTicketToCentral(SiteInfo siteInfo)
+    {
+        try
         {
-            ErrCode = criteria.ErrCode,
-            ErrMsg = criteria.ErrMsg
-        };
+            var latestLogPending = await queryLogService.GetLatestLogPending(siteInfo.AliasName);
+            if (latestLogPending.Rows.Count == 0)
+            {
+                return true;
+            }
+
+            await queryLogService.InsertPendingLog(latestLogPending, siteInfo.SiteGroupId);
+            await queryLogService.UpdateLogStatus(latestLogPending, siteInfo.AliasName);
+            return true;
+        }
+        catch
+        {
+            return false;
+        }
     }
 }
