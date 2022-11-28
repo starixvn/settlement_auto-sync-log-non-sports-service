@@ -7,7 +7,7 @@ public class GetLatestLogPendingCriteria : CriteriaBase
 
     public override string GetSettingKey()
     {
-        return $"SiteDB_NAP_SettlementService_PendingLog_{DbServer}";
+        return $"SiteDB_NAP_SettlementService_PendingLog_3rd_{DbServer}";
     }
 
     public override bool IsValid() => !string.IsNullOrWhiteSpace(DbServer);

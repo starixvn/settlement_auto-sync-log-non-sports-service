@@ -8,5 +8,5 @@ public class InsertPendingLogCriteria : NonQueryCommand
 
     public override bool IsValid() => SiteDBGroupId > 0 && SiteDBCalculationLog.Rows.Count > 0;
 
-    public override string GetSettingKey() => "NAP_SettlementService_PendingLogIns";
+    public override string GetSettingKey() => "NAP_SettlementService_PendingLog_3rdIns";
 }

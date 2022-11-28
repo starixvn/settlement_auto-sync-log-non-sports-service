@@ -11,5 +11,5 @@ public class UpdateLogCriteria : NonQueryCommand
 
     public override bool IsValid() => !string.IsNullOrWhiteSpace(LogIds);
 
-    public override string GetSettingKey() => $"SiteDB_NAP_SettlementService_CalculationLogUpd_{DbServer}";
+    public override string GetSettingKey() => $"SiteDB_NAP_SettlementService_CalculationLog_3rdUpd_{DbServer}";
 }

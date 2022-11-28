@@ -9,7 +9,7 @@ public class GetLatestLogCriteria : CriteriaBase
 
     public override string GetSettingKey()
     {
-        return $"SiteDB_NAP_SettlementService_CalculationLogSel_{DbServer}";
+        return $"SiteDB_NAP_SettlementService_CalculationLog_3rdSel_{DbServer}";
     }
 
     public override bool IsValid() => !string.IsNullOrWhiteSpace(DbServer);

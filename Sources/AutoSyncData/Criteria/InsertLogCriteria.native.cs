@@ -8,5 +8,5 @@ public class InsertLogCriteria : NonQueryCommand
 
     public override bool IsValid() => SiteDBGroupId > 0 && SiteDBCalculationLog.Rows.Count > 0;
 
-    public override string GetSettingKey() => "NAP_SettlementService_CalculationLogIns";
+    public override string GetSettingKey() => "NAP_SettlementService_CalculationLog_3rdIns";
 }
