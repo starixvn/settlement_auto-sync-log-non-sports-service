@@ -1,14 +1,14 @@
 FROM hub.nexdev.net/base/dotnet/core/sdk:6.0 AS builder
 WORKDIR /src
 
-COPY ./Sources/AutoSyncData ./AutoSyncData
-COPY ./Sources/Fanex.AutoSyncDataCentralDb.Service/Fanex.AutoSyncDataCentralDb.Service.csproj ./Fanex.AutoSyncDataCentralDb.Service/Fanex.AutoSyncDataCentralDb.Service.csproj
+COPY ./Sources/AutoSyncLogNonSports ./AutoSyncLogNonSports
+COPY ./Sources/Fanex.AutoSyncLogNonSports.Service/Fanex.AutoSyncLogNonSports.Service.csproj ./Fanex.AutoSyncLogNonSports.Service/Fanex.AutoSyncLogNonSports.Service.csproj
 
-WORKDIR /src/Fanex.AutoSyncDataCentralDb.Service
+WORKDIR /src/Fanex.AutoSyncLogNonSports.Service
 RUN dotnet nuget add source http://nuget.nexdev.net/api/v2
 RUN dotnet restore -v n
 
-COPY ./Sources/Fanex.AutoSyncDataCentralDb.Service .
+COPY ./Sources/Fanex.AutoSyncLogNonSports.Service .
 
 RUN dotnet publish -r linux-x64 --self-contained false -c Release -o /app 
 
@@ -22,4 +22,4 @@ RUN sed -i 's/MinProtocol = TLSv1.2/MinProtocol = TLSv1/g' /usr/lib/ssl/openssl.
 WORKDIR /app
 COPY --from=builder /app .
 
-ENTRYPOINT ["dotnet", "Fanex.AutoSyncDataCentralDb.Service.dll"]
+ENTRYPOINT ["dotnet", "Fanex.AutoSyncLogNonSports.Service.dll"]
