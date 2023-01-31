@@ -11,7 +11,7 @@ public interface SyncDataHandler
 
 public class SyncDataHandlerImp : SyncDataHandler
 {
-    private const string AutoSyncKey = "Settlement-Auto-Sync-Sportsbook";
+    private const string AutoSyncKey = "Settlement-Auto-Sync-NonSports";
 
     private const int TimeDelayGetLog = 500;
 
