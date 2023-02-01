@@ -69,7 +69,7 @@ public class SyncDataHandlerImp : SyncDataHandler
         }
         catch (Exception exception)
         {
-            await LogService.ErrorAsync($"AutoSyncLogNonSport - Server:{siteInfo.AliasName} - Restarting service:{exception}");
+            await LogService.ErrorAsync($"Auto Sync Log Non Sport - Server:{siteInfo.AliasName} - Restarting service:{exception}");
         }
     }
 
