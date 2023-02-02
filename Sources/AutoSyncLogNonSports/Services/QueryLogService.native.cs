@@ -79,7 +79,7 @@ public class QueryLogServiceImp : QueryLogService
         var criteria = new InsertLogCriteria
         {
             SiteDBGroupId = siteDbGroupId,
-            SiteDBCalculationLog = table
+            SiteDBCalculationLog_3rd = table
         };
 
         await repository.ExecuteAsync(criteria);
@@ -90,7 +90,7 @@ public class QueryLogServiceImp : QueryLogService
         var criteria = new InsertPendingLogCriteria
         {
             SiteDBGroupId = siteDbGroupId,
-            SiteDBCalculationLog = table
+            SiteDBCalculationLog_3rd = table
         };
 
         await repository.ExecuteAsync(criteria);
