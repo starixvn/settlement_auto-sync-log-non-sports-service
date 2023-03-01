@@ -1,0 +1,11 @@
+﻿global using AutoSyncLogNonSports.Constants;
+global using AutoSyncLogNonSports.Criteria;
+global using AutoSyncLogNonSports.Models;
+global using Fanex.Caching;
+global using Fanex.Data;
+global using Fanex.Data.Repository;
+global using Fanex.Logging;
+global using Fanex.MailDeliver.Model;
+global using Fanex.Settlement.ScaleOut.Services;
+global using Microsoft.Extensions.Options;
+global using System.Data;

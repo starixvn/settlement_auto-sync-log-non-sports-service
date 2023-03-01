@@ -1,5 +1,5 @@
 include:
-  - project: "ci/repos-ci/olympus_nap_autosyncdatacentraldb"
+  - project: "ci/repos-ci/olympus_nap_auto_sync_log_non_sports"
     ref: master
     file: "gitlab-ci.yml"
 
