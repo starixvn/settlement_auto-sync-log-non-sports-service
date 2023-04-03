@@ -17,7 +17,7 @@ public class SyncDataHandlerTests
     private readonly SyncDataService syncDataService;
     private readonly SendMailService sendMailService;
     private readonly ICache cache;
-    private const string AutoSyncKey = "Settlement-Auto-Sync-Sportsbook";
+    private const string AutoSyncKey = "Settlement-Auto-Sync-NonSports";
 
     public SyncDataHandlerTests()
     {
