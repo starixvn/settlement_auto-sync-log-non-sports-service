@@ -124,14 +124,15 @@ public class SyncDataHandlerTests
     }
 
     [Fact]
-    public void StartHandle_SyncPendingTicketThrowException_RightExceptionMessage()
+    public async Task StartHandle_SyncPendingTicketThrowException_RightExceptionNull()
     {
         // Arrange
         syncDataService.RetrySyncCommandTicketToCentral(Arg.Any<SiteInfo>()).ThrowsAsync(new Exception());
         var handler = new SyncDataHandlerImp(cache, queryLogService, syncDataService, sendMailService);
 
         // Assert
-        Assert.ThrowsAsync<Exception>(() => handler.StartHandle(new SiteInfo()));
+        var exception = await Record.ExceptionAsync(() => handler.StartHandle(new SiteInfo()));
+        Assert.Null(exception);
     }
 
     [Fact]
@@ -196,14 +197,18 @@ public class SyncDataHandlerTests
     }
 
     [Fact]
-    public void ProcessHandle_SyncPendingTicketThrowException_RightExceptionMessage()
+    public async Task ProcessHandle_SyncPendingTicketThrowException_RightExceptionNull()
     {
-        // Arrange
-        syncDataService.SyncCommandTicketToCentral(Arg.Any<DataTable>(), Arg.Any<SiteInfo>())
-            .ThrowsAsync(new Exception());
+        var dt = new DataTable();
+        dt.Columns.Add("LogId", typeof(long));
+        dt.Rows.Add(9876);
+
+        queryLogService.GetLatestLog(Arg.Any<string>(), Arg.Any<int>()).Returns(dt);
+
+        syncDataService.SyncCommandTicketToCentral(Arg.Any<DataTable>(), Arg.Any<SiteInfo>()).ThrowsAsync(new Exception());
         var handler = new SyncDataHandlerImp(cache, queryLogService, syncDataService, sendMailService);
 
-        // Assert
-        Assert.ThrowsAsync<Exception>(() => handler.ProcessHandle(new SiteInfo()));
+        var exception = await Record.ExceptionAsync(() => handler.ProcessHandle(new SiteInfo()));
+        Assert.Null(exception);
     }
 }

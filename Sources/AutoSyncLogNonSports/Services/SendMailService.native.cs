@@ -1,4 +1,6 @@
-﻿namespace AutoSyncLogNonSports.Services;
+﻿using Fanex.MailDeliver.MailClient.Model;
+
+namespace AutoSyncLogNonSports.Services;
 
 public interface SendMailService
 {
