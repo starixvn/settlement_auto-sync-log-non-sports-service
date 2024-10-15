@@ -22,4 +22,4 @@ app.Run(async context =>
     await context.Response.WriteAsync("OK");
 });
 
-app.Run();
+await app.RunAsync();

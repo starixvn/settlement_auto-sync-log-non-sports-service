@@ -1,33 +1,33 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Functions>
-  <Function Name="AutoSyncData">
-    <Setting Key="NAP_SettlementService_CalculationLog_3rdIns" SpName="NAP_SettlementService_CalculationLog_3rdIns" DbName="DBTXN.bodb02.wsv_nap" TimeOut="60" />
-    <Setting Key="NAP_SettlementService_PendingLog_3rdIns" SpName="NAP_SettlementService_PendingLog_3rdIns" DbName="DBTXN.bodb02.wsv_nap" TimeOut="60" />
-  </Function>
+	<Function Name="AutoSyncData">
+		<Setting Key="NAP_SettlementService_CalculationLog_3rdIns" SpName="NAP_SettlementService_CalculationLog_3rdIns" DbName="DBTXN.bodb02.wsv_nap" TimeOut="60" />
+		<Setting Key="NAP_SettlementService_PendingLog_3rdIns" SpName="NAP_SettlementService_PendingLog_3rdIns" DbName="DBTXN.bodb02.wsv_nap" TimeOut="60" />
+	</Function>
 
-  <Function Name="SiteDb">
-    <Function Name="Get_SiteDBGroupID">
-      <Setting Key="Get_SiteDBGroupID_DBSID01" SpName="Get_SiteDBGroupID" DbName="DBSID01.bodb02.wsv_nap" />
-      <Setting Key="Get_SiteDBGroupID_DBSID02" SpName="Get_SiteDBGroupID" DbName="DBSID02.bodb02.wsv_nap" />
-      <Setting Key="Get_SiteDBGroupID_DBSID03" SpName="Get_SiteDBGroupID" DbName="DBSID03.bodb02.wsv_nap" />
-    </Function>
+	<Function Name="SiteDb">
+		<Function Name="Get_SiteDBGroupID">
+			<Setting Key="Get_SiteDBGroupID_DBSITE01" SpName="Get_SiteDBGroupID" DbName="DBSITE01.bodb02.wsv_nap" />
+			<Setting Key="Get_SiteDBGroupID_DBSITE02" SpName="Get_SiteDBGroupID" DbName="DBSITE02.bodb02.wsv_nap" />
+			<Setting Key="Get_SiteDBGroupID_DBSITE03" SpName="Get_SiteDBGroupID" DbName="DBSITE03.bodb02.wsv_nap" />
+		</Function>
 
-    <Function Name="SiteDB_NAP_SettlementService_CalculationLog_3rdSel">
-      <Setting Key="SiteDB_NAP_SettlementService_CalculationLog_3rdSel_DBSID01" SpName="SiteDB_NAP_SettlementService_CalculationLog_3rdSel" DbName="DBSID01.bodb02.wsv_nap" />
-      <Setting Key="SiteDB_NAP_SettlementService_CalculationLog_3rdSel_DBSID02" SpName="SiteDB_NAP_SettlementService_CalculationLog_3rdSel" DbName="DBSID02.bodb02.wsv_nap" />
-      <Setting Key="SiteDB_NAP_SettlementService_CalculationLog_3rdSel_DBSID03" SpName="SiteDB_NAP_SettlementService_CalculationLog_3rdSel" DbName="DBSID03.bodb02.wsv_nap" />
-    </Function>
+		<Function Name="SiteDB_NAP_SettlementService_CalculationLog_3rdSel">
+			<Setting Key="SiteDB_NAP_SettlementService_CalculationLog_3rdSel_DBSITE01" SpName="SiteDB_NAP_SettlementService_CalculationLog_3rdSel" DbName="DBSITE01.bodb02.wsv_nap" />
+			<Setting Key="SiteDB_NAP_SettlementService_CalculationLog_3rdSel_DBSITE02" SpName="SiteDB_NAP_SettlementService_CalculationLog_3rdSel" DbName="DBSITE02.bodb02.wsv_nap" />
+			<Setting Key="SiteDB_NAP_SettlementService_CalculationLog_3rdSel_DBSITE03" SpName="SiteDB_NAP_SettlementService_CalculationLog_3rdSel" DbName="DBSITE03.bodb02.wsv_nap" />
+		</Function>
 
-    <Function Name="SiteDB_NAP_SettlementService_CalculationLog_3rdUpd">
-      <Setting Key="SiteDB_NAP_SettlementService_CalculationLog_3rdUpd_DBSID01" SpName="SiteDB_NAP_SettlementService_CalculationLog_3rdUpd" DbName="DBSID01.bodb02.wsv_nap" TimeOut="60" />
-      <Setting Key="SiteDB_NAP_SettlementService_CalculationLog_3rdUpd_DBSID02" SpName="SiteDB_NAP_SettlementService_CalculationLog_3rdUpd" DbName="DBSID02.bodb02.wsv_nap" TimeOut="60" />
-      <Setting Key="SiteDB_NAP_SettlementService_CalculationLog_3rdUpd_DBSID03" SpName="SiteDB_NAP_SettlementService_CalculationLog_3rdUpd" DbName="DBSID03.bodb02.wsv_nap" TimeOut="60" />
-    </Function>
+		<Function Name="SiteDB_NAP_SettlementService_CalculationLog_3rdUpd">
+			<Setting Key="SiteDB_NAP_SettlementService_CalculationLog_3rdUpd_DBSITE01" SpName="SiteDB_NAP_SettlementService_CalculationLog_3rdUpd" DbName="DBSITE01.bodb02.wsv_nap" TimeOut="60" />
+			<Setting Key="SiteDB_NAP_SettlementService_CalculationLog_3rdUpd_DBSITE02" SpName="SiteDB_NAP_SettlementService_CalculationLog_3rdUpd" DbName="DBSITE02.bodb02.wsv_nap" TimeOut="60" />
+			<Setting Key="SiteDB_NAP_SettlementService_CalculationLog_3rdUpd_DBSITE03" SpName="SiteDB_NAP_SettlementService_CalculationLog_3rdUpd" DbName="DBSITE03.bodb02.wsv_nap" TimeOut="60" />
+		</Function>
 
-    <Function Name="SiteDB_NAP_SettlementService_PendingLog_3rd">
-      <Setting Key="SiteDB_NAP_SettlementService_PendingLog_3rd_DBSID01" SpName="SiteDB_NAP_SettlementService_PendingLog_3rd" DbName="DBSID01.bodb02.wsv_nap" />
-      <Setting Key="SiteDB_NAP_SettlementService_PendingLog_3rd_DBSID02" SpName="SiteDB_NAP_SettlementService_PendingLog_3rd" DbName="DBSID02.bodb02.wsv_nap" />
-      <Setting Key="SiteDB_NAP_SettlementService_PendingLog_3rd_DBSID03" SpName="SiteDB_NAP_SettlementService_PendingLog_3rd" DbName="DBSID03.bodb02.wsv_nap" />
-    </Function>
-  </Function>
+		<Function Name="SiteDB_NAP_SettlementService_PendingLog_3rd">
+			<Setting Key="SiteDB_NAP_SettlementService_PendingLog_3rd_DBSITE01" SpName="SiteDB_NAP_SettlementService_PendingLog_3rd" DbName="DBSITE01.bodb02.wsv_nap" />
+			<Setting Key="SiteDB_NAP_SettlementService_PendingLog_3rd_DBSITE02" SpName="SiteDB_NAP_SettlementService_PendingLog_3rd" DbName="DBSITE02.bodb02.wsv_nap" />
+			<Setting Key="SiteDB_NAP_SettlementService_PendingLog_3rd_DBSITE03" SpName="SiteDB_NAP_SettlementService_PendingLog_3rd" DbName="DBSITE03.bodb02.wsv_nap" />
+		</Function>
+	</Function>
 </Functions>
