@@ -1,13 +1,18 @@
 ﻿using AutoSyncLogNonSports.Models;
 using Fanex.AutoSyncLogNonSports.Service;
 using Fanex.Data.SqlServer;
+using Fanex.Logging.Sentry.RavenClient;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddFanexLogSentry(builder.Configuration);
+
 builder.Services.AddFanexSql(builder.Configuration);
+
+builder.Services.AddConfigRedisCache(builder.Configuration);
 
 builder.Services.Configure<AppSettingsKey>(builder.Configuration);
 

@@ -94,7 +94,7 @@ public class SyncDataHandlerTests
     }
 
     [Fact]
-    public async Task StartHandle_SyncPendingTicketThrowException_RightExceptionNull()
+    public async Task StartHandle_SyncPendingTicketThrowException_RightException()
     {
         // Arrange
         syncDataService.RetrySyncCommandTicketToCentral(Arg.Any<SiteInfo>()).ThrowsAsync(new Exception());
@@ -117,6 +117,46 @@ public class SyncDataHandlerTests
 
         // Assert
         await syncDataService.DidNotReceive().SyncCommandTicketToCentral(Arg.Any<DataTable>(), Arg.Any<SiteInfo>());
+    }
+
+    [Fact]
+    public async Task ProcessHandle_GetLatestLogAndSyncCommandTicketToCentralIsFalse_CallExpectedMethod()
+    {
+        // Arrange
+        var table = new DataTable();
+        var toInsert = table.NewRow();
+        table.Rows.InsertAt(toInsert, 1);
+
+        syncDataService.SyncCommandTicketToCentral(Arg.Any<DataTable>(), Arg.Any<SiteInfo>()).Returns(false);
+        queryLogService.GetLatestLog(Arg.Any<string>(), Arg.Any<int>()).Returns(table);
+        var handler = new SyncDataHandlerImp(cache, queryLogService, syncDataService);
+
+        // Act
+        await handler.ProcessHandle(new SiteInfo());
+
+        // Assert
+        await syncDataService.Received().SyncCommandTicketToCentral(Arg.Any<DataTable>(), Arg.Any<SiteInfo>());
+        queryLogService.Received().GetLogIds(Arg.Any<DataTable>());
+    }
+
+    [Fact]
+    public async Task ProcessHandle_GetLatestLogAndSyncCommandTicketToCentralIsTrue_CallExpectedMethod()
+    {
+        // Arrange
+        var table = new DataTable();
+        var toInsert = table.NewRow();
+        table.Rows.InsertAt(toInsert, 1);
+
+        syncDataService.SyncCommandTicketToCentral(Arg.Any<DataTable>(), Arg.Any<SiteInfo>()).Returns(true);
+        queryLogService.GetLatestLog(Arg.Any<string>(), Arg.Any<int>()).Returns(table);
+        var handler = new SyncDataHandlerImp(cache, queryLogService, syncDataService);
+
+        // Act
+        await handler.ProcessHandle(new SiteInfo());
+
+        // Assert
+        await syncDataService.Received().SyncCommandTicketToCentral(Arg.Any<DataTable>(), Arg.Any<SiteInfo>());
+        queryLogService.DidNotReceive().GetLogIds(Arg.Any<DataTable>());
     }
 
     [Fact]

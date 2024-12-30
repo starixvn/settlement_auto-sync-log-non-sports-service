@@ -8,12 +8,7 @@ namespace AutoSyncLogNonSports.UnitTests.Services
 {
     public class QueryLogServiceTests
     {
-        private readonly IDynamicRepository repository;
-
-        public QueryLogServiceTests()
-        {
-            repository = Substitute.For<IDynamicRepository>();
-        }
+        private readonly IDynamicRepository repository = Substitute.For<IDynamicRepository>();
 
         [Fact]
         public void GetLogIds_EmptyData_ReturnsEmpty()
