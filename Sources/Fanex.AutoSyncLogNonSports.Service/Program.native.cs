@@ -3,28 +3,25 @@ using Fanex.AutoSyncLogNonSports.Service;
 using Fanex.Data.SqlServer;
 using Fanex.Logging.Sentry.RavenClient;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
+var services = builder.Services;
 
-builder.Services.AddFanexLogSentry(builder.Configuration);
+services.AddFanexLogSentry(builder.Configuration);
 
-builder.Services.AddFanexSql(builder.Configuration);
+services.AddFanexSql(builder.Configuration);
 
-builder.Services.AddConfigRedisCache(builder.Configuration);
+services.AddConfigRedisCache(builder.Configuration);
 
-builder.Services.Configure<AppSettingsKey>(builder.Configuration);
+services.Configure<AppSettingsKey>(builder.Configuration);
 
-builder.Services.InitializeServices(builder.Configuration);
+services.InitializeServices(builder.Configuration);
 
-builder.Services.AddHostedService<AutoSyncLogNonSportsService>();
+services.AddHostedService<AutoSyncLogNonSportsService>();
+services.AddHealthChecks();
 
 var app = builder.Build();
-
-app.Run(async context =>
-{
-    await context.Response.WriteAsync("OK");
-});
+app.MapHealthChecks("/healthz");
 
 await app.RunAsync();
